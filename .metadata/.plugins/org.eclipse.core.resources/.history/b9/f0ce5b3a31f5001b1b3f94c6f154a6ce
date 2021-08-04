@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<button><a href="/member/join/">일반회원</a></button>
+	<button><a href="/member/join/">전문가회원</a></button>
+	<button><a href="/member/join/">사업자회원</a></button>
+
+</body>
+</html>
