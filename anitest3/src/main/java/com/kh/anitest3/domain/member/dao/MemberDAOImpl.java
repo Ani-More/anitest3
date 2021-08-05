@@ -2,6 +2,7 @@ package com.kh.anitest3.domain.member.dao;
 
 import java.util.List;
 
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -219,8 +220,16 @@ public class MemberDAOImpl implements MemberDAO {
 	 */
 	@Override
 	public MemberDTO findByIdPw(String id, String pw) {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuffer sql = new StringBuffer();
+		sql.append("select id,nickname,mtype from member ");
+		sql.append("		where id=? ");
+		sql.append("    and pw=? ");
+		
+		MemberDTO memberDTO = jdbcTemplate.queryForObject(sql.toString(),
+				new BeanPropertyRowMapper<>(MemberDTO.class),
+				id, pw);
+		
+		return memberDTO;
 	}
 
 	/**

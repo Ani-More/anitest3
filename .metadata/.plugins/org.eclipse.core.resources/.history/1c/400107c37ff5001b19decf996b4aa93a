@@ -1,0 +1,5 @@
+package com.kh.anitest3.web.form;
+
+public class LoginForm {
+
+}

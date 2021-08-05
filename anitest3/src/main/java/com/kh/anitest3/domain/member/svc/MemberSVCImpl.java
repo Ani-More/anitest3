@@ -56,8 +56,8 @@ public class MemberSVCImpl implements MemberSVC {
 
 	@Override
 	public MemberDTO findByIdPw(String id, String pw) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return memberDAO.findByIdPw(id,pw);
 	}
 
 	@Override
