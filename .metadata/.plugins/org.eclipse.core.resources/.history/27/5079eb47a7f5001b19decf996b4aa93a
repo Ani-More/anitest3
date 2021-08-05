@@ -35,15 +35,10 @@
             <li><a href="#">내새끼보세요</a></li>
           </ul>
         </li>
-        <!--         
-        <li><a href="/member/join">회원가입</a></li>
-        <li><a href="/login">로그인</a></li>        
-         -->
-        <li th:if="${session.loginMember} == null"><a href="/member/join">회원가입</a></li>
-        <li th:if="${session.loginMember} == null"><a href="/login">로그인</a></li>
-        <li th:if="${session.loginMember} != null"><a href="/member/">회원정보</a></li>
-        <li th:if="${session.loginMember} != null"><a href="/logout">로그아웃</a></li>
-
+        <li th:if="${session.loginMember} == null><a href="/member/join">회원가입</a></li>
+        <li th:if="${session.loginMember} == null><a href="/login">로그인</a></li>
+        <li ><a href="/member/join">회원가입</a></li>
+        <li ><a href="/login">로그인</a></li>
       </ul>
   </nav>
   </div>
