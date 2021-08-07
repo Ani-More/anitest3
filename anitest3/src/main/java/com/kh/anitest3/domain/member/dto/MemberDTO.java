@@ -30,7 +30,6 @@ public class MemberDTO {
   private String fsize; 		//  varchar2(45),
   private String ftype; 		//  varchar2(50),
   private String fname; 		//  varchar2(150),
-  private String myani; 		//  varchar2(30),
   private Integer mileage; 	//  number(6) DEFAULT 0 not null ,
   
   /**

@@ -34,71 +34,53 @@ public class MemberDAOImpl implements MemberDAO {
 		sql.append("into MEMBER(ID,PW,TEL,EMAIL,NAME,NICKNAME,GENDER,ADDRESS,BIRTH,MTYPE) ");
 		sql.append("values (?,?,?,?,?,?,?,?,?,?) ");
 		
-		
 		//일반회원 가입 쿼리
 		if(memberDTO.getMtype().equals("N")) {
-			sql.append("into myani(MNUM,MID,ANIMAL) values(myani_mnum_seq.nextval,?,?) ");
-			sql.append("select * from dual");
+			if(memberDTO.getAnimal() != null) {
+				sql.append("into myani(MNUM,MID,ANIMAL) values(myani_mnum_seq.nextval,?,?) ");
 			
-			rows = jdbcTemplate.update(
-					sql.toString(),
-					memberDTO.getId(),
-					memberDTO.getPw(),
-					memberDTO.getTel(),
-					memberDTO.getEmail(),
-					memberDTO.getName(),
-					memberDTO.getNickname(),
-					memberDTO.getGender(),
-					memberDTO.getAddress(),
-					memberDTO.getBirth(),
-					memberDTO.getMtype(),
-					memberDTO.getId(),
-					memberDTO.getAnimal()
-			);
-		}//일반회원가입 쿼리 끝
-		
-		//전문가회원가입 쿼리
-		if(memberDTO.getMtype().equals("P")) {
-			sql.append("into profession(PNUM,PID,LICENSENO) values(profession_pnum_seq.nextval,?,?) ");
-			sql.append("select * from dual");
-			
-			rows = jdbcTemplate.update(
-					sql.toString(),
-					memberDTO.getId(),
-					memberDTO.getPw(),
-					memberDTO.getTel(),
-					memberDTO.getEmail(),
-					memberDTO.getName(),
-					memberDTO.getNickname(),
-					memberDTO.getGender(),
-					memberDTO.getAddress(),
-					memberDTO.getBirth(),
-					memberDTO.getMtype(),
-					memberDTO.getId(),
-					memberDTO.getLicenseno()
-			);
-		}//전문가회원가입 쿼리 끝
-		
-		//사업자회원 전용 정보
-		if(memberDTO.getMtype().equals("B")) {
-			//병원 카테고리 포함됐을시 병원태그 체크
-			String h_tags="";
-			String h_tags_value="";
-			if(memberDTO.getBhospital() != null) {
-				h_tags+=",nightcare,rareani,visitcare,holidayopen,dental";
-				
-				if(memberDTO.getNightcare() != null)	h_tags_value+=",'Y'";
-				else h_tags_value+=",'N'";
-				if(memberDTO.getRareani() != null) h_tags_value+=",'Y'";
-				else h_tags_value+=",'N'";
-				if(memberDTO.getVisitcare() != null) h_tags_value+=",'Y'";
-				else h_tags_value+=",'N'";
-				if(memberDTO.getHolidayopen() != null) h_tags_value+=",'Y'";
-				else h_tags_value+=",'N'";
-				if(memberDTO.getDental() != null) h_tags_value+=",'Y'";
-				else h_tags_value+=",'N'";
+				//키우는동물 not null
+				sql.append("select * from dual");
+				rows = jdbcTemplate.update(
+						sql.toString(),
+						memberDTO.getId(),
+						memberDTO.getPw(),
+						memberDTO.getTel(),
+						memberDTO.getEmail(),
+						memberDTO.getName(),
+						memberDTO.getNickname(),
+						memberDTO.getGender(),
+						memberDTO.getAddress(),
+						memberDTO.getBirth(),
+						memberDTO.getMtype(),
+						memberDTO.getId(),
+						memberDTO.getAnimal()
+						);
+				return;
 			}
 			
+			//키우는동물 null
+			sql.append("select * from dual");
+			rows = jdbcTemplate.update(
+					sql.toString(),
+					memberDTO.getId(),
+					memberDTO.getPw(),
+					memberDTO.getTel(),
+					memberDTO.getEmail(),
+					memberDTO.getName(),
+					memberDTO.getNickname(),
+					memberDTO.getGender(),
+					memberDTO.getAddress(),
+					memberDTO.getBirth(),
+					memberDTO.getMtype()
+					);
+			return;
+		}//일반회원가입 쿼리 끝
+		
+		//특수회원가입 쿼리
+		if(memberDTO.getMtype().equals("S")) {
+		//사업장정보
+//		if(memberDTO.getMtype().equals("B")) {
 			//(체크박스 사용시) 카테고리 체크
 			int bc_count=0;
 			if(memberDTO.getBhospital() != null) {
@@ -147,37 +129,130 @@ public class MemberDAOImpl implements MemberDAO {
 				bcategory_values+=",'Y'";
 			}
 			
-//				sql.append("insert all ");
-//				sql.append("into MEMBER(ID,PW,TEL,EMAIL,NAME,NICKNAME,GENDER,ADDRESS,BIRTH,MTYPE) ");
-//				sql.append("values (?,?,?,?,?,?,?,?,?,?) ");
-			sql.append("into BUSINESS(BNUM,BBNUM,BID,BNAME,BADDRESS,BTELL"+h_tags+") ");
-			sql.append("values(business_bnum_seq.nextval,?,?,?,?,?"+h_tags_value+") ");
-			sql.append("into BCATEGORY(BNUM"+bcategory+") values(business_bnum_seq.currval"+bcategory_values+") ");
-			sql.append("select * from dual");		
+			//병원 카테고리 포함됐을시 병원태그 체크
+			String h_tags="";
+			String h_tags_value="";
+			if(memberDTO.getBhospital() != null) {
+				h_tags+=",nightcare,rareani,visitcare,holidayopen,dental";
+				
+				if(memberDTO.getNightcare() != null)	h_tags_value+=",'Y'";
+				else h_tags_value+=",'N'";
+				if(memberDTO.getRareani() != null) h_tags_value+=",'Y'";
+				else h_tags_value+=",'N'";
+				if(memberDTO.getVisitcare() != null) h_tags_value+=",'Y'";
+				else h_tags_value+=",'N'";
+				if(memberDTO.getHolidayopen() != null) h_tags_value+=",'Y'";
+				else h_tags_value+=",'N'";
+				if(memberDTO.getDental() != null) h_tags_value+=",'Y'";
+				else h_tags_value+=",'N'";
+			}
 			
-			rows = jdbcTemplate.update(
-													sql.toString(),
-													memberDTO.getId(),
-													memberDTO.getPw(),
-													memberDTO.getTel(),
-													memberDTO.getEmail(),
-													memberDTO.getName(),
-													memberDTO.getNickname(),
-													memberDTO.getGender(),
-													memberDTO.getAddress(),
-													memberDTO.getBirth(),
-													memberDTO.getMtype(),
-													memberDTO.getBbnum(),
-													memberDTO.getId(),
-													memberDTO.getBname(),
-													memberDTO.getBaddress(),
-													memberDTO.getBtell()
-			);
+			if(bc_count != 0) {
+				sql.append("into BUSINESS(BNUM,BBNUM,BID,BNAME,BADDRESS,BTELL"+h_tags+") ");
+				sql.append("values(business_bnum_seq.nextval,?,?,?,?,?"+h_tags_value+") ");
+				sql.append("into BCATEGORY(BNUM"+bcategory+") values(business_bnum_seq.currval"+bcategory_values+") ");
+//				sql.append("select * from dual");
+				
+//				rows = jdbcTemplate.update(
+//														sql.toString(),
+//														memberDTO.getId(),
+//														memberDTO.getPw(),
+//														memberDTO.getTel(),
+//														memberDTO.getEmail(),
+//														memberDTO.getName(),
+//														memberDTO.getNickname(),
+//														memberDTO.getGender(),
+//														memberDTO.getAddress(),
+//														memberDTO.getBirth(),
+//														memberDTO.getMtype(),
+//														memberDTO.getBbnum(),
+//														memberDTO.getId(),
+//														memberDTO.getBname(),
+//														memberDTO.getBaddress(),
+//														memberDTO.getBtell()
+//														);
+			}
+			//자격증정보
+			if(!memberDTO.getLicenseno().isBlank()) {
+				sql.append("into profession(PNUM,PID,LICENSENO) values(profession_pnum_seq.nextval,?,?) ");
+			}
 			
+			sql.append("select * from dual");
 			
-		}// 사업자 회원 끝
+			// 자격증, 사업정보 둘다 기입한경우
+			if((!memberDTO.getLicenseno().isBlank()) && (bc_count != 0)) {
+				log.info("1");
+				rows = jdbcTemplate.update(
+					sql.toString(),
+					memberDTO.getId(),
+					memberDTO.getPw(),
+					memberDTO.getTel(),
+					memberDTO.getEmail(),
+					memberDTO.getName(),
+					memberDTO.getNickname(),
+					memberDTO.getGender(),
+					memberDTO.getAddress(),
+					memberDTO.getBirth(),
+					memberDTO.getMtype(),
+					memberDTO.getBbnum(),
+					memberDTO.getId(),
+					memberDTO.getBname(),
+					memberDTO.getBaddress(),
+					memberDTO.getBtell(),
+					memberDTO.getId(),
+					memberDTO.getLicenseno()
+				);
+				return;
+			}
+			
+			//사업정보만 기입한 경우
+			if(bc_count != 0) {
+				log.info("2");
+				rows = jdbcTemplate.update(
+				sql.toString(),
+				memberDTO.getId(),
+				memberDTO.getPw(),
+				memberDTO.getTel(),
+				memberDTO.getEmail(),
+				memberDTO.getName(),
+				memberDTO.getNickname(),
+				memberDTO.getGender(),
+				memberDTO.getAddress(),
+				memberDTO.getBirth(),
+				memberDTO.getMtype(),
+				memberDTO.getBbnum(),
+				memberDTO.getId(),
+				memberDTO.getBname(),
+				memberDTO.getBaddress(),
+				memberDTO.getBtell()
+				);
+				return;
+			}
+			
+			//자격증만 기입한경우
+			if(!memberDTO.getLicenseno().isBlank()) {
+				log.info("3");
+				rows = jdbcTemplate.update(
+						sql.toString(),
+						memberDTO.getId(),
+						memberDTO.getPw(),
+						memberDTO.getTel(),
+						memberDTO.getEmail(),
+						memberDTO.getName(),
+						memberDTO.getNickname(),
+						memberDTO.getGender(),
+						memberDTO.getAddress(),
+						memberDTO.getBirth(),
+						memberDTO.getMtype(),
+						memberDTO.getId(),
+						memberDTO.getLicenseno()
+				);
+				return;
+			}
+		}// 특수회원 끝
+		
+	}//public void join(MemberDTO memberDTO) 끝
 	
-	}
 
 	/**
 	 * 회원조회 by ID

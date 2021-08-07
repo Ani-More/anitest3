@@ -43,8 +43,7 @@ public class MemberController {
 		//조인폼에서 받은 회원유형 값으로 보여줄 항목, 안보여줄 항목 선택되도록
 		
 		if(mtype.equals("일반"))	mtype="N";
-		if(mtype.equals("전문가"))	mtype="P";
-		if(mtype.equals("사업자"))	mtype="B";
+		if(mtype.equals("특수"))	mtype="S";
 		
 		model.addAttribute("mtype", mtype);
 		return "/member/joinForm";
