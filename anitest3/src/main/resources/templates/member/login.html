@@ -19,16 +19,19 @@
 
   <div>
     <!-- TODO form db와 연결하기 -->
-    <form class="login" action="/login" method="post">
-
-      <input class="login__id" type="text" name="id" placeholder="아이디">
+    <form class="login" action="/login" method="post" th:object="${loginForm}">
+		
+		<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}">글로벌오류=오브젝트레벨의 오류</p>
+		
+		  <input class="login__id" type="text" name="id" placeholder="아이디">
+      <p class="login__errormsg" th:if="${#fields.hasErrors('id')}" th:errors="*{id}" th:text></p>
       <input class="login__pwd" type="text" name="pw" placeholder="비밀번호">
-      <p class="login__errormsg"></p>
+       <p class="login__errormsg" th:if="${#fields.hasErrors('pw')}" th:errors="*{id}" th:text></p>
       <input class="login__btn" type="submit" value="로그인">
       
       <div class="toggle"></div>
       <label class="switch">
-        <input type="checkbox">
+        <input type="checkbox" name="autologincheck">
         <span class="slider round"></span>
       </label>
       <span class="switch__text">자동 로그인 OFF</span><span class="switch__text" style="display:none;">자동 로그인 ON</span>
@@ -47,9 +50,7 @@
   <div class="ad">
     <img src="https://picsum.photos/seed/picsum/300/250" alt="">
   </div>
-  
-  
-  
+	
 </main>
 
     <script>
