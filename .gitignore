@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 # Created by https://www.toptal.com/developers/gitignore/api/java,eclipse,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,eclipse,visualstudiocode
 
@@ -67,6 +68,25 @@ local.properties
 ### Eclipse Patch ###
 # Spring Boot Tooling
 .sts4-cache/
+=======
+# Created by https://www.toptal.com/developers/gitignore/api/java,visualstudiocode,git
+# Edit at https://www.toptal.com/developers/gitignore?templates=java,visualstudiocode,git
+
+### Git ###
+# Created by git for backups. To disable backups in Git:
+# $ git config --global mergetool.keepBackup false
+*.orig
+
+# Created by git when using merge tools for conflicts
+*.BACKUP.*
+*.BASE.*
+*.LOCAL.*
+*.REMOTE.*
+*_BACKUP_*.txt
+*_BASE_*.txt
+*_LOCAL_*.txt
+*_REMOTE_*.txt
+>>>>>>> 75bb8e520402d8346ec1ccf0081ce12de998f1a1
 
 ### Java ###
 # Compiled class file
@@ -109,4 +129,8 @@ hs_err_pid*
 .history
 .ionide
 
+<<<<<<< HEAD
 # End of https://www.toptal.com/developers/gitignore/api/java,eclipse,visualstudiocode
+=======
+# End of https://www.toptal.com/developers/gitignore/api/java,visualstudiocode,git
+>>>>>>> 75bb8e520402d8346ec1ccf0081ce12de998f1a1
