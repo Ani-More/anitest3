@@ -84,6 +84,4 @@ public class MemberSVCImpl implements MemberSVC {
 		return null;
 	}
 
-
-
 }

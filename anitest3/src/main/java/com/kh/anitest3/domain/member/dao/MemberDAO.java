@@ -11,7 +11,7 @@ public interface MemberDAO {
 	//회원가입
 	void join(MemberDTO memberDTO);		//임시
 	void join(JoinNormalForm joinNF);
-	void join(JoinSpecialForm joinSF);	
+	void join(JoinSpecialForm joinSF);
 	
 	//회원조회 by ID
 	MemberDTO findByID(String id);

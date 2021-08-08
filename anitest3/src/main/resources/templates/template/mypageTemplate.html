@@ -75,14 +75,14 @@
           <h2 class="mypage_aside_title">마이페이지</h2>
           <ul class="mypage_aside_menu">
             <!-- TODO th:href 등록 파일명'임의'표기-->
-            <li th:class="${menuNum}==1 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageFavorites" th:href="@{/member/mypage/1}">즐겨 찾는 업체</a></li>
-            <li th:class="${menuNum}==2 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageReview" th:href="@{/member/mypage/2}">내가 쓴 리뷰</a></li>
-            <li th:class="${menuNum}==3 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypagePost.html" th:href="@{/member/mypage/3}">내가 쓴 글</a></li>
-            <li th:class="${menuNum}==4 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageReply.html" th:href="@{/member/mypage/4}">내가 쓴 댓글</a></li>
-            <li th:class="${menuNum}==5 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageGood.html" th:href="@{/member/mypage/5}">좋아요</a></li>
-            <li th:class="${menuNum}==6 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageCoupon.html" th:href="@{/member/mypage/6}">내 쿠폰</a></li>
-            <li th:class="${menuNum}==7 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageModi.html" th:href="@{/member/mypage/7}">회원 정보 수정</a></li>
-            <li th:class="${menuNum}==8 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageDel.html" th:href="@{/member/mypage/8}">회원 탈퇴</a></li>
+            <li th:class="${mpMenuName}==1 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageFavorites" th:href="@{/member/mypage/mypageFavorites}">즐겨 찾는 업체</a></li>
+            <li th:class="${mpMenuName}==2 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageReview" th:href="@{/member/mypage/mypageReview}">내가 쓴 리뷰</a></li>
+            <li th:class="${mpMenuName}==3 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypagePost.html" th:href="@{/member/mypage/mypagePost}">내가 쓴 글</a></li>
+            <li th:class="${mpMenuName}==4 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageReply.html" th:href="@{/member/mypage/mypageReply}">내가 쓴 댓글</a></li>
+            <li th:class="${mpMenuName}==5 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageGood.html" th:href="@{/member/mypage/mypageGood}">좋아요</a></li>
+            <li th:class="${mpMenuName}==6 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageCoupon.html" th:href="@{/member/mypage/mypageCoupon}">내 쿠폰</a></li>
+            <li th:class="${mpMenuName}==7 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageModi.html" th:href="@{/member/mypage/mypageModi}">회원 정보 수정</a></li>
+            <li th:class="${mpMenuName}==8 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageDel.html" th:href="@{/member/mypage/mypageDel}">회원 탈퇴</a></li>
           </ul>
         </div>
         <div class="mypage_content_container" th:replace="${mp_content}">

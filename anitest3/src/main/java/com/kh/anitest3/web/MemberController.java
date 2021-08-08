@@ -82,13 +82,13 @@ public class MemberController {
 	
 	
 	//마이페이지
-	@GetMapping("/mypage/{menuNum}")
+	@GetMapping("/mypage/{mpMenuName}")
 	public String mypage(
-			@PathVariable("menuNum") String menuNum,
+			@PathVariable("mpMenuName") String mpMenuName,
 			Model model) {
 		
-		model.addAttribute(menuNum);
-		return "/mypage/"+menuNum;
+		model.addAttribute(mpMenuName);
+		return "/mypage/"+mpMenuName;
 	}
 	
 	/**
