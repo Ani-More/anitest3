@@ -193,7 +193,7 @@ create table myani(
   ANIMAL varchar(30),
   MNUM number(10),
   constraint myani_MNUM_PK primary key(MNUM)
-  ,constraint myani_id_FK foreign key(MID) 
+  ,constraint myani_id_FK foreign key(MID)
                                  references member(id)
                                  ON DELETE CASCADE
 );

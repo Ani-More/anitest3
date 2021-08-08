@@ -4,16 +4,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.kh.anitest3.domain.member.dto.MemberDTO;
 import com.kh.anitest3.domain.member.svc.MemberSVC;
 import com.kh.anitest3.web.form.JoinNormalForm;
 import com.kh.anitest3.web.form.JoinSpecialForm;
+import com.kh.anitest3.web.form.LoginMember;
+import com.kh.anitest3.web.form.MyPageModiForm;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -98,6 +100,28 @@ public class MemberController {
 	public String findByID(String id) {
 		
 		MemberDTO memberDTO = memberSVC.findByID(id);
+		
+		return "";
+	}
+	
+	/**
+	 * 회원수정폼 by ID, PW
+	 */
+	@PostMapping("/member/{id}/modify")
+	public String modifyForm(
+			@SessionAttribute(name="loginMember",required = false) LoginMember loginMember,
+			MyPageModiForm mpmf, Model model) {
+		
+		if(loginMember != null) {
+			log.info("별칭:{}", loginMember.getNickname());
+		}else {
+			return "login/loginForm";
+		}
+		
+		memberSVC.findByIdPw(loginMember.getId(), mpmf.getPw());
+		
+		
+		
 		
 		return "";
 	}

@@ -16,10 +16,14 @@
     <h3 class="mypage_content_title">회원 정보 수정</h3>
     <hr>
     <div class="mypage_content">
-      
-
-      
-			
+			<form th:action="@{|/member/${session.loginMember.id}/modify|}" method="post">
+				
+				<p>비밀번호 재확인</p>
+				<p>비밀번호를 다시 한번 확인해주세요</p>
+				<input type="password" name="pw" placeholder="비밀번호 확인"/>
+				<button type="submit">확인</button>
+				
+			</form>
     </div>
   </div>
 
