@@ -284,10 +284,6 @@ create sequence uploadfile_fid_seq;
 
 
 
-
-
-
-
 --업체회원
 insert into MEMBER(ID,PW,TEL, EMAIL, NAME, NICKNAME,GENDER,ADDRESS,BIRTH,MTYPE)
   values ('test2@test.com','zxc123!@','010-1234-1234', '홍길동', 'petlove1@kh.com','반려부자','남','울산','20001010','B');

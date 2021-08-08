@@ -45,7 +45,8 @@
         
         <li th:if="${session.loginMember} == null"><a href="/member/join">회원가입</a></li>
         <li th:if="${session.loginMember} == null"><a href="/login">로그인</a></li>
-        <li th:if="${session.loginMember} != null"><a href="/member/mypage/1">회원정보</a></li>
+        <li th:if="${session.loginMember.mtype.equals('N')}"><a href="/member/mypage/mypageFavorites" th:text="${session.loginMember.nickname}">일반회원닉네임</a></li>
+        <li th:if="${session.loginMember.mtype.equals('S')}"><a href="/member/mypage/mypageBReview" th:text="${session.loginMember.nickname}">특수회원닉네임</a></li>
         <li th:if="${session.loginMember} != null"><a href="/logout">로그아웃</a></li>
         
       </ul>
@@ -63,7 +64,8 @@
           Tester1
         </div>
         <div class="mypage_profile_usertypeicon">
-          <img src="https://cdn.pixabay.com/photo/2016/10/10/14/13/dog-1728494_960_720.png" alt="회원유형">
+          <img src="/img/mypage/일반회원임시.png" alt="회원유형" th:if="${session.loginMember.mtype.equals('N')}">
+          <img src="/img/mypage/특수회원임시.png" alt="회원유형" th:if="${session.loginMember.mtype.equals('S')}">
         </div>
         <div class="mypage_profile_mileage">
           마일리지: 1000p
@@ -73,16 +75,25 @@
       <div class="mypage_container2">
         <div class="mypage_aside_container">
           <h2 class="mypage_aside_title">마이페이지</h2>
+          <ul class="mypage_aside_menu" th:if="${session.loginMember.mtype.equals('N')}">
+          <!-- 일반회원메뉴 -->
+            <li th:class="${mpMenuName}==mypageFavorites ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageFavorites" th:href="@{/member/mypage/mypageFavorites}">즐겨 찾는 업체</a></li>
+            <li th:class="${mpMenuName}==mypageReview ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageReview" th:href="@{/member/mypage/mypageReview}">내가 쓴 리뷰</a></li>
+            <li th:class="${mpMenuName}==mypagePost ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypagePost.html" th:href="@{/member/mypage/mypagePost}">내가 쓴 글</a></li>
+            <li th:class="${mpMenuName}==mypageReply ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageReply.html" th:href="@{/member/mypage/mypageReply}">내가 쓴 댓글</a></li>
+            <li th:class="${mpMenuName}==mypageGood ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageGood.html" th:href="@{/member/mypage/mypageGood}">좋아요</a></li>
+            <li th:class="${mpMenuName}==mypageCoupon ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageCoupon.html" th:href="@{/member/mypage/mypageCoupon}">내 쿠폰</a></li>
+          </ul>
+          
+          <ul class="mypage_aside_menu" th:if="${session.loginMember.mtype.equals('S')}">
+          <!-- 특수회원메뉴 -->
+          	<li th:class="${mpMenuName}==mypageBReview ? 'mypage_aside_menu_highlight'"><a href="" th:href="@{/member/mypage/mypageBReview}">내 업체 리뷰보기</a></li>
+          	<li th:class="${mpMenuName}==mypageBModi ? 'mypage_aside_menu_highlight'"><a href="" th:href="@{/member/mypage/mypageBModi}">내 업체 수정</a></li>
+          </ul>
           <ul class="mypage_aside_menu">
-            <!-- TODO th:href 등록 파일명'임의'표기-->
-            <li th:class="${mpMenuName}==1 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageFavorites" th:href="@{/member/mypage/mypageFavorites}">즐겨 찾는 업체</a></li>
-            <li th:class="${mpMenuName}==2 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageReview" th:href="@{/member/mypage/mypageReview}">내가 쓴 리뷰</a></li>
-            <li th:class="${mpMenuName}==3 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypagePost.html" th:href="@{/member/mypage/mypagePost}">내가 쓴 글</a></li>
-            <li th:class="${mpMenuName}==4 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageReply.html" th:href="@{/member/mypage/mypageReply}">내가 쓴 댓글</a></li>
-            <li th:class="${mpMenuName}==5 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageGood.html" th:href="@{/member/mypage/mypageGood}">좋아요</a></li>
-            <li th:class="${mpMenuName}==6 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageCoupon.html" th:href="@{/member/mypage/mypageCoupon}">내 쿠폰</a></li>
-            <li th:class="${mpMenuName}==7 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageModi.html" th:href="@{/member/mypage/mypageModi}">회원 정보 수정</a></li>
-            <li th:class="${mpMenuName}==8 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageDel.html" th:href="@{/member/mypage/mypageDel}">회원 탈퇴</a></li>
+          <!-- 공통메뉴 -->
+          	<li th:class="${mpMenuName}==mypageModi ? 'mypage_aside_menu_highlight'"><a href="" th:href="@{/member/mypage/mypageModi}">회원 정보 수정</a></li>
+          	<li th:class="${mpMenuName}==mypageDel ? 'mypage_aside_menu_highlight'"><a href="" th:href="@{/member/mypage/mypageDel}">회원 탈퇴</a></li>
           </ul>
         </div>
         <div class="mypage_content_container" th:replace="${mp_content}">

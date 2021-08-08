@@ -43,7 +43,8 @@
         
         <li th:if="${session.loginMember} == null"><a href="/member/join">회원가입</a></li>
         <li th:if="${session.loginMember} == null"><a href="/login">로그인</a></li>
-        <li th:if="${session.loginMember} != null"><a href="/member/mypage/1">회원정보</a></li>
+        <li th:if="${session.loginMember.mtype.equals('N')}"><a href="/member/mypage/mypageFavorites" th:text="${session.loginMember.nickname}">일반회원닉네임</a></li>
+        <li th:if="${session.loginMember.mtype.equals('S')}"><a href="/member/mypage/mypageBReview" th:text="${session.loginMember.nickname}">특수회원닉네임</a></li>
         <li th:if="${session.loginMember} != null"><a href="/logout">로그아웃</a></li>
         
       </ul>
