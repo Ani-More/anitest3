@@ -15,7 +15,7 @@
 	<main class="main">
 
 		<!-- TODO 회원가입 완료시, 메인화면? 회원가입완료페이지? -->
-		<form action="/html/index.html" th:action="@{/member/join}" method="post">
+		<form action="/html/index.html" th:action="@{|/member/join/${mtype}|}" method="post">
 			<input type="hidden" name="mtype" th:value="${mtype}"/>
 			
 			<h1 th:if="${mtype} == 'N'">일반회원가입양식</h1>
@@ -47,8 +47,9 @@
 			</div>
 			
 			<div th:if="${mtype} == 'S'">
-				<h3 class="joinform__title">자격증정보</h3>
+				<h3 class="joinform__title">특수회원전용정보</h3>
 				<hr>
+				<h3 class="joinform__title">자격증정보</h3>
 				<ul class="joinform">
 					<li><div class="li_label"><label for="licenseno">자격증번호</label></div>					<input class="joinform__input" type="text" name="licenseno" id="licenseno" /></li>
 					<li><div class="li_label"><label for="image">자격증사진</label></div>							<input class="joinform__input" type="file" name="image" id="image" /></li>

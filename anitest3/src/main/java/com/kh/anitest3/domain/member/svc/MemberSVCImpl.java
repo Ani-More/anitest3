@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.kh.anitest3.domain.member.dao.MemberDAO;
 import com.kh.anitest3.domain.member.dto.MemberDTO;
+import com.kh.anitest3.web.form.JoinNormalForm;
+import com.kh.anitest3.web.form.JoinSpecialForm;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,12 +25,22 @@ public class MemberSVCImpl implements MemberSVC {
 	 */
 	@Override
 	public MemberDTO join(MemberDTO memberDTO) {
-		
 		memberDAO.join(memberDTO);
-
-		//
 		return memberDTO;
 	}
+//	일반회원가입
+	@Override
+	public MemberDTO join(JoinNormalForm joinNF) {
+		memberDAO.join(joinNF);
+		return null;
+	}
+//	특수회원가입
+	@Override
+	public MemberDTO join(JoinSpecialForm joinSF) {
+		memberDAO.join(joinSF);
+		return null;
+	}
+	
 
 	@Override
 	public MemberDTO findByID(String id) {
@@ -71,5 +83,7 @@ public class MemberSVCImpl implements MemberSVC {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }

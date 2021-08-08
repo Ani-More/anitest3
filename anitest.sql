@@ -1,3 +1,5 @@
+drop table uploadfile;
+drop table code;
 drop table coupon;
 drop table profession;
 drop table Myani;
@@ -22,7 +24,7 @@ create table member(
   gender char(3) not null,
   address varchar2(150) not null,
   birth date not null,
-  mtype varchar2(1) not null check(mtype='N' or mtype='P' or mtype='B'),
+  mtype varchar2(1) not null check(mtype='N' or mtype='S'),
   cdate timestamp DEFAULT systimestamp not null,
   udate timestamp DEFAULT systimestamp,
   image blob,
@@ -30,6 +32,7 @@ create table member(
   ftype varchar2(50),
   fname varchar2(150),
   mileage number(6) DEFAULT 0 not null ,
+  withdrawflag char(1),
   constraint MEMBER_ID_PK primary key(id)
 );
 
@@ -49,8 +52,8 @@ create table board(
   bcontent clob not null,
   bgroup number(5),
   constraint BOARD_BNUM_PK primary key(bnum)
-  ,constraint board_id_FK foreign key(bid) 
-                                 references member(id) 
+  ,constraint board_id_FK foreign key(bid)
+                                 references member(id)
 );
 
 --댓글
@@ -65,17 +68,17 @@ create table rboard(
   rgroup number(5) not null,
   rstep number(5) not null,
   constraint RBOARD_RNUM_PK primary key(rnum)
-  ,constraint rboard_bnum_FK foreign key(bnum) 
+  ,constraint rboard_bnum_FK foreign key(bnum)
                                  references board(bnum)
                                  ON DELETE CASCADE
-  ,constraint rboard_id_FK foreign key(rid) 
+  ,constraint rboard_id_FK foreign key(rid)
                                  references member(id)
 );
 
 --건강정보
 create table hboard(
   bnum number(10),
-  hcategory varchar2(12) not null check(hcategory='질병사전' 
+  hcategory varchar2(12) not null check(hcategory='질병사전'
                               or hcategory='행동사전'),
   btitle varchar2(150) not null,
   bid varchar2(40) not null,
@@ -85,7 +88,7 @@ create table hboard(
   bgood number(5) DEFAULT 0 not null,
   bcontent clob not null,
   constraint HBOARD_BNUM_PK primary key(bnum)
-  ,constraint hboard_id_FK foreign key(bid) 
+  ,constraint hboard_id_FK foreign key(bid)
                                  references member(id)
 );
 
@@ -207,6 +210,50 @@ create table coupon(
                               ON DELETE CASCADE
 );
 
+--코드
+create table code(
+  code VARCHAR2(11),
+  decode varchar2(30),
+  descript clob,
+  fcode varchar2(11),
+  use_yn char(1),
+  cdate timestamp default systimestamp,
+  udate timestamp,
+  constraint code_code_pk primary key(code),
+  constraint code_pcode_fk foreign key(code) references code,
+  constraint code_decode_uk unique (decode),
+  constraint code_use_yn_ck check(use_yn in('Y','N'))
+);
+
+--코드데이블 데이터삽입
+insert into code(code,decode,pcode,use_yn)
+values ('A01','회원첨부파일',null,'Y');
+insert into code(code,decode,pcode,use_yn)
+values ('A0101','회원프로필사진','A01','Y');
+insert into code(code,decode,pcode,use_yn)
+values ('A0102','상품이미지','A01','Y');
+commit;
+
+
+--업로드파일
+create table uploadfile(
+  fid number(10),
+  pid varchar2(10) not null,
+  code varchar2(11) not null,
+  store_fname varchar2(50) not null,
+  upload_fname varchar2(50) not null,
+  fsize varchar2(45) not null,
+  ftype varchar2(100) not null,
+  cdate timestamp default systimestamp,
+  udate timestamp,
+  constraint uploadfile_fid_pk primary key(fid),
+  constraint uploadfile_pid_fk FOREIGN key(code) references code
+);
+
+
+
+
+
 --시퀀스 삭제
 DROP SEQUENCE BOARD_BNUM_SEQ;
 DROP SEQUENCE rboard_rnum_seq;
@@ -218,6 +265,7 @@ DROP SEQUENCE mylist_mnum_seq;
 DROP SEQUENCE myani_mnum_seq;
 DROP SEQUENCE profession_pnum_seq;
 DROP SEQUENCE coupon_cnum_seq;
+drop sequence uploadfile_fid_seq;
 
 --시퀀스 생성
 CREATE SEQUENCE BOARD_BNUM_SEQ INCREMENT BY 1 START WITH 1;
@@ -230,6 +278,14 @@ CREATE SEQUENCE mylist_mnum_seq INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE myani_mnum_seq INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE profession_pnum_seq INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE coupon_cnum_seq INCREMENT BY 1 START WITH 1;
+create sequence uploadfile_fid_seq;
+
+
+
+
+
+
+
 
 
 --업체회원
@@ -250,7 +306,8 @@ select * from myani;
 select * from profession;
 
 rollback;
-
+delete from member;
+commit;
 
 --일반회원 가입쿼리
 insert all

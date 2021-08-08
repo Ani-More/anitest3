@@ -14,6 +14,6 @@ public class LoginForm {
 	@NotBlank
 	private String pw;
 
-	//자동로그인 체크여부 추가해야될듯
+	//자동로그인 체크여부
 	private boolean autologincheck;
 }

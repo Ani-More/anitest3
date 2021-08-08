@@ -3,11 +3,15 @@ package com.kh.anitest3.domain.member.svc;
 import java.util.List;
 
 import com.kh.anitest3.domain.member.dto.MemberDTO;
+import com.kh.anitest3.web.form.JoinNormalForm;
+import com.kh.anitest3.web.form.JoinSpecialForm;
 
 public interface MemberSVC {
 	
 	//회원가입
-	MemberDTO join(MemberDTO memberDTO);
+	MemberDTO join(MemberDTO memberDTO);	//임시
+	MemberDTO join(JoinNormalForm joinNF);
+	MemberDTO join(JoinSpecialForm joinSF);
 	
 	//회원조회 by ID
 	MemberDTO findByID(String id);

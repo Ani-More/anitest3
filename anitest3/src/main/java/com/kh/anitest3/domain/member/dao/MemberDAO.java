@@ -3,11 +3,15 @@ package com.kh.anitest3.domain.member.dao;
 import java.util.List;
 
 import com.kh.anitest3.domain.member.dto.MemberDTO;
+import com.kh.anitest3.web.form.JoinNormalForm;
+import com.kh.anitest3.web.form.JoinSpecialForm;
 
 public interface MemberDAO {
 	
 	//회원가입
-	void join(MemberDTO memberDTO);
+	void join(MemberDTO memberDTO);		//임시
+	void join(JoinNormalForm joinNF);
+	void join(JoinSpecialForm joinSF);	
 	
 	//회원조회 by ID
 	MemberDTO findByID(String id);

@@ -1,17 +1,13 @@
 package com.kh.anitest3.domain.member.dto;
 
-import org.springframework.web.multipart.MultipartFile;
+import com.kh.anitest3.common.upload.dto.UpLoadFile;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-/**
- * 임시로 사용
- * @author mypc
- *
- */
 @Data
-public class MemberDTO {
-	
+@NoArgsConstructor
+public class MemberViewDTO {
 	/**
 	 * 회원 (공통정보)
 	 * MEMBER 테이블
@@ -34,7 +30,7 @@ public class MemberDTO {
   private String fname; 		//  varchar2(150),
   private Integer mileage; 	//  number(6) DEFAULT 0 not null ,
   
-  private MultipartFile profileImage; //프로필사진
+  private UpLoadFile profileImage;	//프로필사진
   
   /**
    * 일반회원 전용 정보
@@ -43,14 +39,9 @@ public class MemberDTO {
   			//mnum (동물번호)
   			//mid (사용자 아이디)
   private String animal; 		// varchar(30),
-
   
   /**
-   * 특수회원 전용 정보
-   */
-  
-  /**
-   * 자격증정보
+   * 전문가회원 전용 정보
    * PROFESSION 테이블 (전문가)
    */
   			//pnum 전문가번호
@@ -58,7 +49,7 @@ public class MemberDTO {
   private String licenseno; // varchar2(20) not null,
   
   /**
-   * 사업자정보
+   * 사업자회원 전용 정보
    * BUSINESS 테이블 (업체)
    */
   			// id (bid)추가
@@ -92,5 +83,4 @@ public class MemberDTO {
 
 	//임시로 사용
   private String bcategory;
-
 }

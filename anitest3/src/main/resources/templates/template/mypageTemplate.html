@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      th:fragment= "mypagecontainer(title,mp_content,js)">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/mypage.js" defer></script>
+	<script defer th:replace="${js}"></script>
+  <title th:replace=${title}>마이페이지</title>
+</head>
+<body>
+
+  <header class="logo">
+    <a href="/main">
+      <h1 class="logo__text">Ani-More</h1>
+      <img class="logo__img" src="/img/logo.png" alt="">
+    </a>
+  </header>
+
+  <nav class="nav nav-sub">
+    <div class="nav__column">
+      <i class="fas fa-bars"></i>
+      <span>전체 카테고리</span>
+		  <!-- 검색 -->
+		  <div class="search">
+		    <input class="search__input search__input--sm" type="text" >
+		    <span class="search__icon search__icon--sm"><i class="fas fa-search"></i></span>
+		  </div>
+    </div>
+    <div class="nav__column">
+      <ul class="nav__btn">
+        <!-- TODO href th:href -->
+        <li><a href="#">건강정보</a></li>
+        <li><a href="#">게시판</a>
+          <ul class="nav__board">
+            <li><a href="#">Q&A</a></li>
+            <li><a href="#">자유게시판</a></li>
+            <li><a href="#">벼룩시장</a></li>
+            <li><a href="#">내새끼보세요</a></li>
+          </ul>
+        </li>
+        
+        <li th:if="${session.loginMember} == null"><a href="/member/join">회원가입</a></li>
+        <li th:if="${session.loginMember} == null"><a href="/login">로그인</a></li>
+        <li th:if="${session.loginMember} != null"><a href="/member/mypage/1">회원정보</a></li>
+        <li th:if="${session.loginMember} != null"><a href="/logout">로그아웃</a></li>
+        
+      </ul>
+  </nav>
+  </div>
+  
+  <!-- 메인 시작 -->
+  <main class="main">
+     <!-- 프로필정보 -->
+      <div class="mypage_profile_container">
+        <div class="mypage_profile_profileimg">
+          <img src="https://cdn.pixabay.com/photo/2016/10/10/14/13/dog-1728494_960_720.png" alt="프로필이미지">
+        </div>
+        <div class="mypage_profile_nickname">
+          Tester1
+        </div>
+        <div class="mypage_profile_usertypeicon">
+          <img src="https://cdn.pixabay.com/photo/2016/10/10/14/13/dog-1728494_960_720.png" alt="회원유형">
+        </div>
+        <div class="mypage_profile_mileage">
+          마일리지: 1000p
+        </div>
+      </div>
+      <!-- 프로필정보 끝 -->
+      <div class="mypage_container2">
+        <div class="mypage_aside_container">
+          <h2 class="mypage_aside_title">마이페이지</h2>
+          <ul class="mypage_aside_menu">
+            <!-- TODO th:href 등록 파일명'임의'표기-->
+            <li th:class="${menuNum}==1 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageFavorites" th:href="@{/member/mypage/1}">즐겨 찾는 업체</a></li>
+            <li th:class="${menuNum}==2 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageReview" th:href="@{/member/mypage/2}">내가 쓴 리뷰</a></li>
+            <li th:class="${menuNum}==3 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypagePost.html" th:href="@{/member/mypage/3}">내가 쓴 글</a></li>
+            <li th:class="${menuNum}==4 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageReply.html" th:href="@{/member/mypage/4}">내가 쓴 댓글</a></li>
+            <li th:class="${menuNum}==5 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageGood.html" th:href="@{/member/mypage/5}">좋아요</a></li>
+            <li th:class="${menuNum}==6 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageCoupon.html" th:href="@{/member/mypage/6}">내 쿠폰</a></li>
+            <li th:class="${menuNum}==7 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageModi.html" th:href="@{/member/mypage/7}">회원 정보 수정</a></li>
+            <li th:class="${menuNum}==8 ? 'mypage_aside_menu_highlight'"><a href="/html/mypage/mypageDel.html" th:href="@{/member/mypage/8}">회원 탈퇴</a></li>
+          </ul>
+        </div>
+        <div class="mypage_content_container" th:replace="${mp_content}">
+          <h3 class="mypage_content_title">즐겨 찾는 업체</h3>
+          <hr>
+          <div class="mypage_content">
+            <ul>
+              <li><input type="checkbox" name="bcategory_all" id="bcategory_all"><label for="bcategory_all">전체</label></li>
+              <li><input type="checkbox" name="bhospital" id="bhospital"><label for="bhospital">병원</label></li>
+              <li><input type="checkbox" name="bpharmacy" id="bpharmacy"><label for="bpharmacy">약국</label></li>
+              <li><input type="checkbox" name="bhotel" id="bhotel"><label for="bhotel">호텔</label></li>
+              <li><input type="checkbox" name="bkindergarden" id="bkindergarden"><label for="bkindergarden">유치원</label></li>
+              <li><input type="checkbox" name="bfood" id="bfood"><label for="bfood">식당.카페</label></li>
+              <li><input type="checkbox" name="btraining" id="btraining"><label for="btraining">훈련소</label></li>
+              <li><input type="checkbox" name="bshop" id="bshop"><label for="bshop">용품점</label></li>
+              <li><input type="checkbox" name="bplayground" id="bplayground"><label for="bplayground">놀이터</label></li>
+              <li><input type="checkbox" name="bhairshop" id="bhairshop"><label for="bhairshop">미용실</label></li>
+              <li><input type="checkbox" name="betc" id="betc"><label for="betc">기타</label></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </main>
+  <!-- 메인 끝 -->
+
+  <!-- 푸터 -->
+  <footer>
+    <p class="ft_name">Ani-More</p>
+    <p class="ft_content">주소 : 울산광역시 남구 삼산로35번길 19 </p>
+    <p class="ft_content">사업자번호 : 123-45-67890</p>
+    <p class="ft_content">Contact Us Admin@animore.com</p>
+    <p class="ft_content">@Copyright Ani-More All Rights Reserved 2021</p>
+	</footer>
+  <!-- 푸터 끝 -->
+</body>
+</html>

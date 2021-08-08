@@ -1,23 +1,18 @@
-package com.kh.anitest3.domain.member.dto;
+package com.kh.anitest3.web.form;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
-/**
- * 임시로 사용
- * @author mypc
- *
- */
 @Data
-public class MemberDTO {
-	
+public class JoinSpecialForm {
 	/**
 	 * 회원 (공통정보)
 	 * MEMBER 테이블
 	 */
   private String id; 				//  varchar2(40),
   private String pw;				//  varchar2 (16) not null,
+  private String pw2;
   private String tel; 			//  varchar2(13) not null,
   private String email; 		//  varchar2(30) not null,
   private String name; 			//  varchar2(30) not null,
@@ -29,26 +24,13 @@ public class MemberDTO {
 //  cdate; 									//  timestamp DEFAULT systimestamp not null,
 //  udate; 									//  timestamp DEFAULT systimestamp,
 //  image; 									//  blob,
-  private String fsize; 		//  varchar2(45),
-  private String ftype; 		//  varchar2(50),
-  private String fname; 		//  varchar2(150),
-  private Integer mileage; 	//  number(6) DEFAULT 0 not null ,
+//  private String fsize; 		//  varchar2(45),
+//  private String ftype; 		//  varchar2(50),
+//  private String fname; 		//  varchar2(150),
+//  private Integer mileage; 	//  number(6) DEFAULT 0 not null ,
   
   private MultipartFile profileImage; //프로필사진
-  
-  /**
-   * 일반회원 전용 정보
-   * MYANI 테이블 (키우는 동물)
-   */
-  			//mnum (동물번호)
-  			//mid (사용자 아이디)
-  private String animal; 		// varchar(30),
-
-  
-  /**
-   * 특수회원 전용 정보
-   */
-  
+    
   /**
    * 자격증정보
    * PROFESSION 테이블 (전문가)

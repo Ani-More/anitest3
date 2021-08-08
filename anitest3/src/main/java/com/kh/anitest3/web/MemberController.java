@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.anitest3.domain.member.dto.MemberDTO;
 import com.kh.anitest3.domain.member.svc.MemberSVC;
+import com.kh.anitest3.web.form.JoinNormalForm;
+import com.kh.anitest3.web.form.JoinSpecialForm;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -49,9 +52,7 @@ public class MemberController {
 		return "/member/joinForm";
 	}
 	
-	/**
-	 * 회원가입처리
-	 */
+	//임시
 	@PostMapping("/join")
 	public String join(MemberDTO memberDTO) {
 		
@@ -59,7 +60,37 @@ public class MemberController {
 //		처리하고 인덱스로
 		return "redirect:/main";
 	}
-
+	
+	/**
+	 * 일반회원가입처리
+	 */
+	@PostMapping("/join/N")
+	public String joinNormal(JoinNormalForm joinNF) {
+		
+		memberSVC.join(joinNF);
+		return "redirect:/main";
+	}
+	/**
+	 * 특수회원가입처리
+	 */
+	@PostMapping("/join/S")
+	public String joinSpecial(JoinSpecialForm joinSF) {
+		
+		memberSVC.join(joinSF);
+		return "redirect:/main";
+	}
+	
+	
+	//마이페이지
+	@GetMapping("/mypage/{menuNum}")
+	public String mypage(
+			@PathVariable("menuNum") String menuNum,
+			Model model) {
+		
+		model.addAttribute(menuNum);
+		return "/mypage/"+menuNum;
+	}
+	
 	/**
 	 * 회원조회 by ID
 	 */
