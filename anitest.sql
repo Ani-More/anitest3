@@ -252,8 +252,6 @@ create table uploadfile(
 
 
 
-
-
 --시퀀스 삭제
 DROP SEQUENCE BOARD_BNUM_SEQ;
 DROP SEQUENCE rboard_rnum_seq;

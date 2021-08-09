@@ -83,11 +83,38 @@ public class MemberController {
 	}
 	
 	
-	//마이페이지
+	//마이페이지 뷰
 	@GetMapping("/mypage/{mpMenuName}")
 	public String mypage(
 			@PathVariable("mpMenuName") String mpMenuName,
 			Model model) {
+		
+//		메뉴에 따라 적합한 데이터를 받아서 모델에 담는다
+//		정보수정, 회원탈퇴 이외에는 게시판 형식으로 비슷한 형태인 페이지들.
+		switch (mpMenuName) {
+		case "mypageFavorites":
+//		memberSVC.~~
+			break;
+		case "mypageReview":
+			
+			break;
+		case "mypagePost":
+			
+			break;
+		case "mypageReply":
+			
+			break;
+		case "mypageGood":
+			
+			break;
+		case "mypageCopon":
+			
+			break;
+		default:
+			break;
+		}
+		
+		
 		
 		model.addAttribute(mpMenuName);
 		return "/mypage/"+mpMenuName;
