@@ -16,7 +16,7 @@
     <h3 class="mypage_content_title">즐겨 찾는 업체</h3>
     <hr>
     <div class="mypage_content">
-      <ul>
+      <ul th:if="${mpMenuName}==mypageFavorites">
         <li><input type="checkbox" name="bcategory_all" id="bcategory_all"><label for="bcategory_all">전체</label></li>
         <li><input type="checkbox" name="bhospital" id="bhospital"><label for="bhospital">병원</label></li>
         <li><input type="checkbox" name="bpharmacy" id="bpharmacy"><label for="bpharmacy">약국</label></li>
@@ -30,11 +30,27 @@
         <li><input type="checkbox" name="betc" id="betc"><label for="betc">기타</label></li>
       </ul>
 
-<!--/* 
 	   	<table>
-				<tr>
-					<th>글번호</th><th>글제목</th><th>작성자</th><th>작성일자</th>
+				<tr th:if="${mpMenuName}==mypageFavorites">
+					<th>번호</th><th>카테고리</th><th>업체명</th><th>평점</th>		
 				</tr>
+				<tr th:if="${mpMenuName}==mypageReview">
+					<th>번호</th><th>업체명</th><th>내 평점</th><th>리뷰내용</th><th>작성일</th>		
+				</tr>
+				<tr th:if="${mpMenuName}==mypagePost">
+					<th>번호</th><th>카테고리</th><th>게시글제목</th><th>작성일</th><th>조회수</th>		
+				</tr>
+				<tr th:if="${mpMenuName}==mypageReply">
+					<th>번호</th><th>댓글내용</th><th>작성일</th><th>좋아요</th>		
+				</tr>
+				<tr th:if="${mpMenuName}==mypageGood">
+					<th>번호</th><th>카테고리</th><th>게시글제목</th>		
+				</tr>
+				<tr th:if="${mpMenuName}==mypageCopon">
+					<th>번호</th><th>쿠폰이름</th>		
+				</tr>
+
+<!--/* 
 				<tr th:each="gList : ${list}">
 					<td th:text="${gList.gnum}">1</td>
 					<td>
@@ -43,8 +59,8 @@
 					<td th:text="${gList.uname}">작성자1</td>
 					<td th:text="${gList.cdate}">날짜</td>
 				</tr>
-			</table>
 */-->
+			</table>
 
     </div>
   </div>

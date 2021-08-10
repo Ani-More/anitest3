@@ -1,8 +1,8 @@
-package com.kh.anitest3.domain.member.dto;
+package com.kh.anitest3.web.view;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class MemberNormalViewDTO {
+public class MemberModiFormNormalView {
 	/**
 	 * 회원 (공통정보)
 	 * MEMBER 테이블

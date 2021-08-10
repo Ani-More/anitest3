@@ -313,13 +313,13 @@ into myani(MNUM,MID,ANIMAL) values(myani_mnum_seq.nextval,'test2@test.com','고�
 --사업자회원 가입쿼리
 insert all
 into MEMBER(ID,PW,TEL,EMAIL,NAME,NICKNAME,GENDER,ADDRESS,BIRTH,MTYPE)
-  values ('test2@test.com','zxc123!@','010-1234-1234','petlove1@kh.com','홍길동','반려부자','남','울산','20001010','B')
+  values ('test2@test.com','zxc123!@','010-1234-1234','petlove1@kh.com','홍길동','반려부자','남','울산','20001010','S')
 into BUSINESS(BNUM, BBNUM, BID, BNAME, BADDRESS, BTELL)
   values(business_bnum_seq.nextval,112,'test2@test.com','업체명1','업체주소1','010-1111-2222')
 into BCATEGORY(BNUM, BPHARMACY) values(business_bnum_seq.currval,'Y')
-select * from dual;
+  select * from dual;
 
-
+rollback;
 
 update MEMBER
 set PW='12341',TEL='010-1111-1111',EMAIL='test2@googo.com',NAME='홍수정',NICKNAME='수정별명1',GENDER='여',ADDRESS='울산수정',BIRTH='20001231'

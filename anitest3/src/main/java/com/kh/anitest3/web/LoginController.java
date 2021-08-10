@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.kh.anitest3.domain.member.dto.MemberDTO;
+import com.kh.anitest3.domain.member.dto.MemberDTO_old;
 import com.kh.anitest3.domain.member.svc.MemberSVC;
 import com.kh.anitest3.web.form.LoginForm;
 import com.kh.anitest3.web.form.LoginMember;
@@ -53,7 +53,7 @@ public class LoginController {
 		
 		log.info("loginForm:{}", loginForm);
 		
-		MemberDTO memberDTO = memberSVC.findByIdPw(loginForm.getId(), loginForm.getPw());
+		MemberDTO_old memberDTO = memberSVC.findByIdPw(loginForm.getId(), loginForm.getPw());
 		
 		//회원정보가 없는경우
 		if(memberDTO == null) {

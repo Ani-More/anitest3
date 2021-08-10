@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.kh.anitest3.domain.member.dto.MemberDTO;
+import com.kh.anitest3.domain.member.dto.MemberDTO_old;
 import com.kh.anitest3.domain.member.svc.MemberSVC;
 import com.kh.anitest3.web.form.JoinNormalForm;
 import com.kh.anitest3.web.form.JoinSpecialForm;
 import com.kh.anitest3.web.form.LoginMember;
-import com.kh.anitest3.web.form.MyPageModiForm;
+import com.kh.anitest3.web.form.MyPageModi;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,7 +57,7 @@ public class MemberController {
 	
 	//임시
 	@PostMapping("/join")
-	public String join(MemberDTO memberDTO) {
+	public String join(MemberDTO_old memberDTO) {
 		
 		memberSVC.join(memberDTO);
 //		처리하고 인덱스로
@@ -117,6 +118,7 @@ public class MemberController {
 		
 		
 		model.addAttribute(mpMenuName);
+//		return "/mypage/mypageBoardStylePages";
 		return "/mypage/"+mpMenuName;
 	}
 	
@@ -126,38 +128,66 @@ public class MemberController {
 	@GetMapping("/member/{id}")
 	public String findByID(String id) {
 		
-		MemberDTO memberDTO = memberSVC.findByID(id);
+		MemberDTO_old memberDTO = memberSVC.findByID(id);
 		
 		return "";
 	}
 	
 	/**
-	 * 회원수정폼 by ID, PW
+	 * 회원수정 진입전 비밀번호 재확인폼 by ID, PW
 	 */
 	@PostMapping("/member/{id}/modify")
-	public String modifyForm(
+	public String mypageModi(
+			@PathVariable("id") String id,
 			@SessionAttribute(name="loginMember",required = false) LoginMember loginMember,
-			MyPageModiForm mpmf, Model model) {
+			MyPageModi mpmf, RedirectAttributes redirectAttributes,
+			Model model) {
 		
 		if(loginMember != null) {
+			//로그인 되어있으면 콘솔창에 닉네임 출력
 			log.info("별칭:{}", loginMember.getNickname());
 		}else {
-			return "login/loginForm";
+			//로그인 안했으면 로그인페이지로 보내기
+			return "redirect:/login/loginForm";
 		}
 		
-		memberSVC.findByIdPw(loginMember.getId(), mpmf.getPw());
+		//pathvariable의 id값, 세션정보의 id값 동일한지 확인하기
+		//같지 않으면
+		if(!loginMember.getId().equals(id)) {
+			
+			//돌려보내기
+			return "redirect:/";
+		}
 		
+		//id,pw 검색결과 확인
+		MemberDTO_old memberDTO = memberSVC.findByIdPw(loginMember.getId(), mpmf.getPw());
+		//결과가 null이면 (일치하는 정보가 없으면)
+		if(memberDTO == null) {
+			//돌려보내기
+			return "redirect:/";
+		}
+		//회원수정양식에 전달하기 위해 모델에 담기
+		model.addAttribute(memberDTO);
+		redirectAttributes.addAttribute(memberDTO);
+		//회원수정양식
+		return "redirect:/mypage/{id}/modify";
+	}
+	
+	@GetMapping("/member/{id}/modify")
+	public String mypageModiForm() {
 		
 		
 		
 		return "";
 	}
+	
+	
 	
 	/**
 	 * 회원수정 by ID
 	 */
 	@PatchMapping("/member/{id}")
-	public String update(String id,MemberDTO memberDTO) {
+	public String update(String id,MemberDTO_old memberDTO) {
 		
 		
 		return "redirect:/";

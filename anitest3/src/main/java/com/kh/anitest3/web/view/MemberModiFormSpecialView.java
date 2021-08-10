@@ -1,15 +1,14 @@
-package com.kh.anitest3.domain.member.dto;
+package com.kh.anitest3.web.view;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class MemberSpecialViewDTO {
+public class MemberModiFormSpecialView {
 	/**
 	 * 회원 (공통정보)
 	 * MEMBER 테이블
 	 */
   private String id; 				//  varchar2(40),
   private String pw;				//  varchar2 (16) not null,
-  private String pw2;
   private String tel; 			//  varchar2(13) not null,
   private String email; 		//  varchar2(30) not null,
   private String name; 			//  varchar2(30) not null,

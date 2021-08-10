@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.kh.anitest3.domain.member.dto.MemberDTO;
+import com.kh.anitest3.domain.member.dto.MemberDTO_old;
 import com.kh.anitest3.web.form.JoinNormalForm;
 import com.kh.anitest3.web.form.JoinSpecialForm;
 
@@ -25,7 +25,7 @@ public class MemberDAOImpl implements MemberDAO {
 	 * 임시로 작동만 되는거 넣음
 	 */
 	@Override	
-	public void join(MemberDTO memberDTO) {
+	public void join(MemberDTO_old memberDTO) {
 
 		StringBuffer sql = new StringBuffer();
 		String bcategory = "";
@@ -501,7 +501,7 @@ public class MemberDAOImpl implements MemberDAO {
 	 * 회원조회 by ID
 	 */
 	@Override
-	public MemberDTO findByID(String id) {
+	public MemberDTO_old findByID(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -510,7 +510,7 @@ public class MemberDAOImpl implements MemberDAO {
 	 * 회원수정 by ID
 	 */
 	@Override
-	public void update(String id, MemberDTO memberDTO) {
+	public void update(String id, MemberDTO_old memberDTO) {
 		// TODO Auto-generated method stub
 
 	}
@@ -528,7 +528,7 @@ public class MemberDAOImpl implements MemberDAO {
 	 * 회원목록
 	 */
 	@Override
-	public List<MemberDTO> list() {
+	public List<MemberDTO_old> list() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -537,14 +537,14 @@ public class MemberDAOImpl implements MemberDAO {
 	 * 로그인
 	 */
 	@Override
-	public MemberDTO findByIdPw(String id, String pw) {
+	public MemberDTO_old findByIdPw(String id, String pw) {
 		StringBuffer sql = new StringBuffer();
 		sql.append("select id,nickname,mtype from member ");
 		sql.append("		where id=? ");
 		sql.append("    and pw=? ");
 		
-		MemberDTO memberDTO = jdbcTemplate.queryForObject(sql.toString(),
-				new BeanPropertyRowMapper<>(MemberDTO.class),
+		MemberDTO_old memberDTO = jdbcTemplate.queryForObject(sql.toString(),
+				new BeanPropertyRowMapper<>(MemberDTO_old.class),
 				id, pw);
 		
 		return memberDTO;

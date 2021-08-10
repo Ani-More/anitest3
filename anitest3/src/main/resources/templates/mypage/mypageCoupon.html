@@ -19,11 +19,20 @@
       
       <!--/* 
    	<table>
+			<tr th:if="">
+				<th>글번호</th><th>글제목</th><th>작성자</th>	<th>작성일자</th>		
+			</tr>
 			<tr>
-				<th>글번호</th>
-				<th>글제목</th>
-				<th>작성자</th>
-				<th>작성일자</th>		
+				<th>글번호</th><th>글제목</th><th>작성자</th>	<th>작성일자</th>		
+			</tr>
+			<tr>
+				<th>글번호</th><th>글제목</th><th>작성자</th>	<th>작성일자</th>		
+			</tr>
+			<tr>
+				<th>글번호</th><th>글제목</th><th>작성자</th>	<th>작성일자</th>		
+			</tr>
+			<tr>
+				<th>글번호</th><th>글제목</th><th>작성자</th>	<th>작성일자</th>		
 			</tr>
 			<tr th:each="gList : ${list}">
 				<td th:text="${gList.gnum}">1</td>

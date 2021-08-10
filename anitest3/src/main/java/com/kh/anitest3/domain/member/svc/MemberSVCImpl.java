@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.kh.anitest3.domain.member.dao.MemberDAO;
-import com.kh.anitest3.domain.member.dto.MemberDTO;
+import com.kh.anitest3.domain.member.dto.MemberDTO_old;
 import com.kh.anitest3.web.form.JoinNormalForm;
 import com.kh.anitest3.web.form.JoinSpecialForm;
 
@@ -24,32 +24,32 @@ public class MemberSVCImpl implements MemberSVC {
 	 * 서비스로직 작성 필요
 	 */
 	@Override
-	public MemberDTO join(MemberDTO memberDTO) {
+	public MemberDTO_old join(MemberDTO_old memberDTO) {
 		memberDAO.join(memberDTO);
 		return memberDTO;
 	}
 //	일반회원가입
 	@Override
-	public MemberDTO join(JoinNormalForm joinNF) {
+	public MemberDTO_old join(JoinNormalForm joinNF) {
 		memberDAO.join(joinNF);
 		return null;
 	}
 //	특수회원가입
 	@Override
-	public MemberDTO join(JoinSpecialForm joinSF) {
+	public MemberDTO_old join(JoinSpecialForm joinSF) {
 		memberDAO.join(joinSF);
 		return null;
 	}
 	
 
 	@Override
-	public MemberDTO findByID(String id) {
+	public MemberDTO_old findByID(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public MemberDTO update(String id, MemberDTO memberDTO) {
+	public MemberDTO_old update(String id, MemberDTO_old memberDTO) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -61,13 +61,13 @@ public class MemberSVCImpl implements MemberSVC {
 	}
 
 	@Override
-	public List<MemberDTO> list() {
+	public List<MemberDTO_old> list() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public MemberDTO findByIdPw(String id, String pw) {
+	public MemberDTO_old findByIdPw(String id, String pw) {
 		
 		return memberDAO.findByIdPw(id,pw);
 	}
