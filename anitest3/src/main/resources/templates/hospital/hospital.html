@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko"
+			xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>병원목록</title>
+<script src="/js/ajaxCall.js"></script>
+</head>
+<body>
+	<h3>병원목록</h3>
+	<hr />
+	<ul>
+		<li>
+			<label for="pageNo"></label><input type="text" name="pageNo" id="pageNo" />
+			<label for="numOfRows"><input type="text" name="numOfRows" id="numOfRows" />
+			<button type="button" id="searchBtn">조회</button>
+		</li>
+	</ul>
+	<div id="list"></div>
+	<script>
+	
+		searchBtn.addEventListener("click",e=>{
+			//console.log(from.value, to.value);
+			l_from = from.value.replaceAll('-','');
+			l_to = to.value.replaceAll('-','');
+			getHospital();
+		});
+		
+		function getHospital(){
+			
+			const url = 'http://localhost:9081/api/hospital';
+			const queryString = `?pageNo=${pageNo.value}&numOfRows=${numOfRows.value}`;
+			request.get(url+queryString)
+				.then(res=>res.json()) //json포맷 문자열 => js객체변환
+				.then(res=>{
+					if(res.response.header.resultCode == '00'){
+						return res.response.body;
+					}else{
+						throw new Error(res.response.header.resultMsg);
+					}
+					console.log(res.response.header);
+				})
+				.then(body=>{ print(body.items.item); console.log(body) })
+				.catch(err=>console.log(err));				
+		}
+		
+		function print(item){
+			console.log(item);
+			let html = '';
+			html += '  <table border="1">';
+			html += '    <thead>';
+			html += '      <tr>';
+			html += '        <th>사업장명</th>';
+			html += '        <th>주소</th>';
+			html += '        <th>전화번호</th>';
+			html += '      </tr>';
+			html += '    </thead>';
+			html += '    <tbody>';
+			for(const rec of Array.from(item)){
+				html += '      <tr>';
+				html += `        <td>${rec.title}</td>`;
+				html += `        <td>${rec.address}</td>`;
+				html += `        <td>${rec.tel}</td>`;
+				html += '      </tr>';
+			}
+			html += '    </tbody>';
+			html += '  </table>';
+			
+			list.innerHTML = html;
+		}
+		
+	</script>
+</body>
+</html>
